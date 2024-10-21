@@ -1,5 +1,10 @@
 package com.example.APINasa.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
 public enum GlobalConstants {
     APOD_URL("https://api.nasa.gov/planetary/apod?api_key=IfL62QOicKOLtTrnkNtUtAp0vI4mPdoZa8EhGt1M"),
 
@@ -18,5 +23,21 @@ public enum GlobalConstants {
     }
     public String getUrl() {
         return url;
+    }
+
+    public String getBody() {
+        URL url = new URL(APOD_URL.getUrl());
+        URLConnection connection = url.openConnection();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
     }
 }
