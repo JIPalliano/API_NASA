@@ -5,15 +5,11 @@ import com.example.APINasa.model.Apod;
 import com.example.APINasa.util.connect.ConnectApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
 import java.util.Map;
 
 
 public class ApiCalls {
-        //Logger log = LoggerFactory.getLogger(ApiCalls.class);
-
-        /*-------------- 1. APOD ---------------- */
-        public Apod apodApiCall(String date) throws IOException {
+        public Apod apodApiCall(String date){
                 Apod apodValue = new Apod();
                 String getApodCall = ConnectApi.getBody(date);
 
@@ -24,7 +20,7 @@ public class ApiCalls {
                                 ObjectMapper mapper = new ObjectMapper();
                                 Map map = mapper.readValue(getApodCall, Map.class);
 
-                                apodValue.setApoddt((String) map.get("date"));
+                                apodValue.setApodDate((String) map.get("date"));
                                 apodValue.setApodExplation((String) map.get("explanation"));
                                 apodValue.setApodHdUrl((String) map.get("hdurl"));
                                 apodValue.setApodMedia_type((String) map.get("media_type"));
@@ -35,7 +31,7 @@ public class ApiCalls {
                         }
                 }
                 catch (Exception e) {
-                        System.out.printf("RequestID: {} - APOD REQUEST - Exception: Could not retrive APOD Information from API : {}", e.toString());
+                        System.out.println(e.getMessage());
                         return null;
                 }
 
