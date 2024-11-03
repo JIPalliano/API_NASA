@@ -1,41 +1,19 @@
 package com.example.APINasa.util;
 
 
-import com.example.APINasa.model.Apod;
+import com.example.APINasa.controller.Request.RequestApod;
 import com.example.APINasa.util.connect.ConnectApi;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Map;
 
 
 public class ApiCalls {
-        public Apod apodApiCall(String date){
-                Apod apodValue = new Apod();
-                String getApodCall = ConnectApi.getBody(date);
-
-                try
-                {
-                        if(getApodCall!=null)
-                        {
-                                ObjectMapper mapper = new ObjectMapper();
-                                Map map = mapper.readValue(getApodCall, Map.class);
-
-                                apodValue.setApodDate((String) map.get("date"));
-                                apodValue.setApodExplation((String) map.get("explanation"));
-                                apodValue.setApodHdUrl((String) map.get("hdurl"));
-                                apodValue.setApodMedia_type((String) map.get("media_type"));
-                                apodValue.setApodTitle((String) map.get("title"));
-                                apodValue.setApodUrl((String) map.get("url"));
-
-                                return apodValue;
-                        }
-                }
-                catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        return null;
-                }
-
-            return apodValue;
+        public String apodApiCall(RequestApod request){
+                String getApodCall = ConnectApi.getBody(request.date());
+//                String explation,
+//        String hdUrl,
+//        String mediaType,
+//        String title,
+//        String url
+            return getApodCall;
         }
 
         /*-------------- 2. EPIC ---------------- */
